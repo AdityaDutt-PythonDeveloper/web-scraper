@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+</head>
+<body>
+<!-- create a form that will accept links from the user, we will do it with help of form  -->
+        <div class="container">
+            <div class="row"><div class="col-md-12 m-5">
+                <h1>Link Collector</h1>
+            </div></div>
+            <div class="row m-5">
+                <div class="col-md-4">
+                    <form action="/" method="POST">
+                        {% csrf_token %}
+                        <input type="text" class="form-control" id="site" name="site" placeholder="Enter Site">
+
+                </div>
+
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary">Scrape</button>
+                </div>
+
+            </form>
+            <form action="{% url 'clear' %}" method="POST">
+                {%csrf_token %}
+                
+                <div class="col-md-6">
+                  <button type="submit" class="btn btn-danger">Delete</button>  
+                    <!-- this button will delete all the site which are being scraped -->
+                </div>
+            </form>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-8">                   
+                        <table class="table">
+                            <thead class="thead-dark" >
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Link</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+  
+                                {% for link in data %}
+                                <tr>
+                                      <td>{{link.id}}</td>
+                                      <td>{{link.name}}</td>
+                                      <td>{{link.address}}</td>
+  
+                                </tr>
+                                  {% endfor %}
+                            </tbody>
+                        </table>
+                </div>
+            </div>
+        </div>
+
+</body>
+</html>
